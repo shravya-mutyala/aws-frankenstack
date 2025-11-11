@@ -1,0 +1,103 @@
+name: Resurrection Pipeline
+version: 1.0.0
+description: AI-powered pipeline for resurrecting dead websites from Wayback Machine snapshots
+
+modules:
+  - name: snapshot_retriever
+    description: Fetches historical snapshots from Wayback Machine
+    inputs:
+      - url: string (dead website URL)
+      - timestamp: optional string (specific snapshot date)
+    outputs:
+      - snapshots: array of snapshot objects with dates and content
+      - metadata: site information (title, description, technology)
+    
+  - name: semantic_rebuilder
+    description: Reconstructs missing content using AI inference
+    inputs:
+      - snapshot_data: raw HTML/CSS/JS from Wayback
+      - context: site metadata and surrounding content
+    outputs:
+      - reconstructed_html: complete HTML with filled gaps
+      - inferred_content: AI-generated missing pieces
+      - confidence_score: reconstruction quality metric
+    
+  - name: ghost_personality_engine
+    description: Generates conversational personality based on site content
+    inputs:
+      - site_content: all text from resurrected site
+      - era: time period of original site
+      - category: site type (social, forum, personal, etc)
+    outputs:
+      - personality_profile: tone, vocabulary, knowledge base
+      - conversation_context: vector embeddings for chat
+    
+  - name: vector_memory_store
+    description: Stores semantic embeddings in Pinecone for intelligent Q&A
+    inputs:
+      - content_chunks: segmented site content
+      - metadata: url, date, category tags
+    outputs:
+      - embedding_ids: Pinecone vector IDs
+      - search_index: queryable memory store
+    
+  - name: contextual_chat
+    description: Enables conversations with resurrected site ghosts
+    inputs:
+      - user_query: string
+      - ghost_context: personality + vector memory
+      - conversation_history: previous messages
+    outputs:
+      - ghost_response: AI-generated reply in character
+      - source_citations: references to original content
+
+endpoints:
+  - path: /api/resurrect
+    method: POST
+    description: Initiate resurrection of a dead URL
+    body:
+      url: string
+      timestamp: optional string
+    response:
+      resurrection_id: string
+      status: "summoning" | "reconstructing" | "complete"
+      
+  - path: /api/chat/{resurrection_id}
+    method: POST
+    description: Chat with a resurrected site ghost
+    body:
+      message: string
+    response:
+      ghost_reply: string
+      sources: array of content references
+      
+  - path: /api/resurrections
+    method: GET
+    description: List all previously resurrected sites
+    response:
+      resurrections: array of resurrection objects
+
+storage:
+  - dynamodb_table: ResurrectionMetadata
+    keys:
+      partition_key: resurrection_id
+      sort_key: timestamp
+    attributes:
+      - url: string
+      - snapshot_date: string
+      - status: string
+      - personality_profile: map
+      
+  - s3_bucket: ResurrectedContent
+    structure:
+      - /{resurrection_id}/original.html
+      - /{resurrection_id}/reconstructed.html
+      - /{resurrection_id}/assets/*
+      
+  - pinecone_index: DeadWebMemory
+    dimensions: 1536
+    metric: cosine
+    metadata_fields:
+      - url
+      - date
+      - content_type

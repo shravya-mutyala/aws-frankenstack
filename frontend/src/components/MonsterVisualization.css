@@ -1,0 +1,30 @@
+.monster-container {
+    background: #1a1a1a;
+    border: 2px solid #00ff00;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+}
+
+canvas {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.heartbeat-indicator {
+    margin-top: 1rem;
+    height: 20px;
+    background: #0a0a0a;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #00ff00;
+}
+
+.heartbeat-indicator span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #00ff00, #00aa00);
+    transition: width 0.8s ease;
+    box-shadow: 0 0 10px #00ff00;
+}

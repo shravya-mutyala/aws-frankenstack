@@ -1,0 +1,418 @@
+/* Echoes of the Dead Web - Gothic CRT Terminal Theme */
+
+:root {
+    --phosphor-green: #00FF41;
+    --ghostly-blue: #4ECDC4;
+    --deep-black: #0A0E27;
+    --ethereal-purple: #9D4EDD;
+    --spectral-red: #FF006E;
+    --terminal-glow: rgba(0, 255, 65, 0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background: var(--deep-black);
+    color: var(--phosphor-green);
+    overflow-x: hidden;
+}
+
+.app {
+    min-height: 100vh;
+    position: relative;
+    padding: 2rem;
+}
+
+/* CRT Effects */
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(0deg,
+            rgba(0, 0, 0, 0.15),
+            rgba(0, 0, 0, 0.15) 1px,
+            transparent 1px,
+            transparent 2px);
+    pointer-events: none;
+    z-index: 999;
+    animation: scanline-move 8s linear infinite;
+}
+
+@keyframes scanline-move {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(10px);
+    }
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 10;
+}
+
+.title {
+    font-size: 3rem;
+    text-shadow: 0 0 10px var(--terminal-glow), 0 0 20px var(--terminal-glow);
+    letter-spacing: 0.3rem;
+    margin-bottom: 0.5rem;
+    animation: flicker 3s infinite alternate;
+}
+
+.glitch {
+    position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--spectral-red);
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--ghostly-blue);
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% {
+        clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+    }
+
+    100% {
+        clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+    }
+}
+
+@keyframes flicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: var(--ghostly-blue);
+    font-style: italic;
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 5px var(--terminal-glow);
+    border-bottom: 2px solid var(--phosphor-green);
+    padding-bottom: 0.5rem;
+}
+
+/* Resurrection Chamber */
+.resurrection-chamber {
+    background: rgba(10, 14, 39, 0.8);
+    border: 2px solid var(--phosphor-green);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 20px var(--terminal-glow);
+}
+
+.summon-form {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.url-input {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--phosphor-green);
+    color: var(--phosphor-green);
+    padding: 0.75rem;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+}
+
+.url-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px var(--terminal-glow);
+}
+
+.summon-button {
+    background: var(--phosphor-green);
+    color: var(--deep-black);
+    border: none;
+    padding: 0.75rem 2rem;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.summon-button:hover:not(:disabled) {
+    background: var(--ghostly-blue);
+    box-shadow: 0 0 15px var(--ghostly-blue);
+}
+
+.summon-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Loading & Error States */
+.loading-state {
+    text-align: center;
+    padding: 2rem;
+}
+
+.loading-text p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.flicker {
+    animation: flicker 1.5s infinite;
+}
+
+.error-message {
+    background: rgba(255, 0, 110, 0.2);
+    border: 1px solid var(--spectral-red);
+    color: var(--spectral-red);
+    padding: 1rem;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+/* Ghost Chamber */
+.ghost-chamber {
+    background: rgba(10, 14, 39, 0.8);
+    border: 2px solid var(--ethereal-purple);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 20px rgba(157, 78, 221, 0.3);
+}
+
+.ghost-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--ethereal-purple);
+}
+
+.ghost-info p {
+    margin: 0.25rem 0;
+}
+
+.snapshot-preview {
+    margin: 1.5rem 0;
+    border: 2px solid var(--ghostly-blue);
+    height: 500px;
+    overflow: hidden;
+}
+
+.ghost-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: white;
+}
+
+/* Chat Interface */
+.chat-chamber {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--ethereal-purple);
+}
+
+.chat-title {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--ghostly-blue);
+}
+
+.ghost-greeting {
+    padding: 1.5rem;
+    background: rgba(157, 78, 221, 0.1);
+    border-left: 3px solid var(--ethereal-purple);
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.chat-history {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--ghostly-blue);
+}
+
+.chat-message {
+    margin: 0.75rem 0;
+    padding: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.chat-message.user {
+    background: rgba(0, 255, 65, 0.1);
+}
+
+.chat-message.ghost {
+    background: rgba(157, 78, 221, 0.1);
+    border-left: 2px solid var(--ethereal-purple);
+}
+
+.message-label {
+    font-weight: bold;
+    min-width: 80px;
+}
+
+.chat-form {
+    display: flex;
+    gap: 1rem;
+}
+
+.chat-input {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--ghostly-blue);
+    color: var(--phosphor-green);
+    padding: 0.75rem;
+    font-family: 'Courier New', monospace;
+}
+
+.chat-button {
+    background: var(--ghostly-blue);
+    color: var(--deep-black);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Resurrection Gallery */
+.resurrection-gallery {
+    background: rgba(10, 14, 39, 0.8);
+    border: 2px solid var(--ghostly-blue);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.gallery-item {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--ghostly-blue);
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.gallery-item:hover {
+    border-color: var(--ethereal-purple);
+    box-shadow: 0 0 15px rgba(78, 205, 196, 0.3);
+    transform: translateY(-2px);
+}
+
+.gallery-domain {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--phosphor-green);
+}
+
+.gallery-era {
+    font-size: 0.9rem;
+    color: var(--ghostly-blue);
+    margin-bottom: 0.25rem;
+}
+
+.gallery-status {
+    font-size: 0.8rem;
+    color: var(--ethereal-purple);
+    text-transform: uppercase;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--ghostly-blue);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--phosphor-green);
+    margin-top: 3rem;
+}
+
+.footer p {
+    margin: 0.25rem 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .summon-form {
+        flex-direction: column;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}

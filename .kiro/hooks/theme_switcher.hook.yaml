@@ -1,0 +1,24 @@
+name: Theme Switcher
+description: Auto-updates UI theme to match the era of the resurrected website
+trigger: resurrection_complete
+pattern: "api/resurrect"
+
+actions:
+  - name: detect_era
+    description: Identify time period from snapshot date
+    logic: |
+      # 1990s: Green monochrome terminal
+      # 2000s: Colorful GeoCities aesthetic
+      # 2010s: Web 2.0 gradients
+    
+  - name: apply_theme
+    description: Update CSS variables for era-appropriate styling
+    targets:
+      - frontend/src/themes/era-{decade}.css
+      
+  - name: update_sound_effects
+    description: Load era-appropriate audio (dial-up, notification sounds)
+    assets:
+      - sounds/dialup.mp3 (1990s)
+      - sounds/aim-door.mp3 (2000s)
+      - sounds/notification.mp3 (2010s)

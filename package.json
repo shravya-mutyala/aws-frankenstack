@@ -1,0 +1,30 @@
+{
+    "name": "echoes-of-the-dead-web",
+    "version": "1.0.0",
+    "description": "Digital archaeology and AI resurrection - Kiroween Hackathon Resurrection Category",
+    "scripts": {
+        "deploy": "cd infrastructure && cdk deploy",
+        "synth": "cd infrastructure && cdk synth",
+        "dev": "cd frontend && npm run dev",
+        "backend": "node backend-server.js",
+        "start": "npm run backend & npm run dev",
+        "test": "node test-resurrection.js",
+        "test:api": "node test-resurrection.js"
+    },
+    "keywords": [
+        "wayback-machine",
+        "kiroween",
+        "hackathon",
+        "digital-archaeology",
+        "ai-resurrection",
+        "web-history"
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^5.1.0",
+        "ws": "^8.18.0",
+        "axios": "^1.6.0",
+        "dotenv": "^16.3.1"
+    }
+}

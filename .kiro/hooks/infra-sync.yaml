@@ -1,0 +1,14 @@
+name: Infrastructure Sync
+description: Auto-generate CDK code when infra.yaml spec changes
+trigger:
+  type: file-save
+  pattern: ".kiro/specs/infra.yaml"
+
+actions:
+  - name: Regenerate CDK Stack
+    prompt: |
+      The infrastructure spec has been updated. Please:
+      1. Read the updated .kiro/specs/infra.yaml
+      2. Update infrastructure/stacks/monster_stack.py to match the spec
+      3. Ensure all AWS resources follow the standards in aws-standards.md
+      4. Run cdk synth to validate the changes

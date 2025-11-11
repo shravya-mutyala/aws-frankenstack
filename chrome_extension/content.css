@@ -1,0 +1,28 @@
+/* Echoes of the Dead Web - Chrome Extension Styles */
+
+#dead-web-summon {
+    all: initial;
+    font-family: 'Courier New', monospace !important;
+}
+
+#dead-web-summon * {
+    all: unset;
+}
+
+@keyframes dead-web-pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(0, 255, 65, 0.8);
+    }
+}
+
+#dead-web-summon:hover {
+    animation: dead-web-pulse 1s infinite !important;
+}

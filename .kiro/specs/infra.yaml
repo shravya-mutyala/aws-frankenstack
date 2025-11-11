@@ -1,0 +1,39 @@
+name: project-stitch
+description: Multi-headed AWS monster for event monitoring
+
+architecture:
+  services:
+    - name: file-ingestion
+      type: s3
+      trigger: object-created
+      
+    - name: metadata-analyzer
+      type: lambda
+      runtime: python3.11
+      trigger: s3-event
+      
+    - name: lineage-tracker
+      type: dynamodb
+      table: file-lineage
+      
+    - name: health-monitor
+      type: redshift
+      cluster: monster-analytics
+      
+    - name: event-summarizer
+      type: bedrock
+      model: anthropic.claude-3-sonnet
+      
+    - name: creature-ui
+      type: react
+      features:
+        - animated-heartbeat
+        - real-time-events
+        - monster-reports
+
+flow:
+  - s3.file-upload -> lambda.analyze
+  - lambda.analyze -> dynamodb.log
+  - lambda.analyze -> redshift.track
+  - redshift.aggregate -> bedrock.summarize
+  - bedrock.summary -> frontend.display

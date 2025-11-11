@@ -1,0 +1,20 @@
+name: Archive Rebuilder
+description: Auto-generates dataset schemas when a new dead website is selected for resurrection
+trigger: file_change
+pattern: "resurrections/*.json"
+
+actions:
+  - name: generate_schema
+    description: Create data schema for the resurrected site
+    command: |
+      # Extract site metadata and generate appropriate schema
+      # Based on site type (forum, social, blog, etc)
+    
+  - name: update_vector_index
+    description: Prepare Pinecone index with site-specific metadata fields
+    command: |
+      # Configure vector store for optimal retrieval
+      
+  - name: notify_completion
+    description: Log schema generation completion
+    output: "Schema generated for resurrection: {resurrection_id}"
