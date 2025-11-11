@@ -90,30 +90,28 @@ app.post('/api/resurrect', async (req, res) => {
         }
 
         // Store resurrection metadata
-        resurrections.set(resurrectionId, {
+        const resurrectionData = {
             id: resurrectionId,
             url: url,
-            status: 'summoning',
+            status: 'complete', // Changed from 'summoning' to 'complete' for immediate response
             snapshots: snapshots,
             selectedSnapshot: snapshots[0],
             createdAt: new Date().toISOString(),
             personality: generateGhostPersonality(url, snapshots[0].timestamp)
-        });
+        };
 
-        // Simulate resurrection process
-        setTimeout(() => {
-            const resurrection = resurrections.get(resurrectionId);
-            if (resurrection) {
-                resurrection.status = 'complete';
-                broadcastUpdate({ type: 'resurrection_complete', data: resurrection });
-            }
-        }, 3000);
+        resurrections.set(resurrectionId, resurrectionData);
 
+        // Broadcast update immediately
+        broadcastUpdate({ type: 'resurrection_complete', data: resurrectionData });
+
+        // Return complete data immediately (no need for polling)
         res.json({
             resurrectionId,
-            status: 'summoning',
-            message: 'The séance begins...',
-            snapshots: snapshots.slice(0, 5) // Return first 5 snapshots
+            status: 'complete',
+            message: 'Resurrection complete. The site lives again.',
+            snapshots: snapshots.slice(0, 5),
+            resurrection: resurrectionData // Include full resurrection data
         });
 
     } catch (error) {
