@@ -292,6 +292,7 @@ body::before {
     border: 2px solid var(--ghostly-blue);
     height: 500px;
     overflow: hidden;
+    position: relative;
 }
 
 .ghost-frame {
@@ -299,6 +300,25 @@ body::before {
     height: 100%;
     border: none;
     background: white;
+}
+
+.iframe-fallback {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.iframe-fallback a {
+    color: var(--phosphor-green);
+    text-decoration: underline;
+}
+
+.iframe-fallback a:hover {
+    color: var(--ghostly-blue);
 }
 
 /* Chat Interface */

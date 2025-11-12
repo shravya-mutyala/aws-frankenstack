@@ -173,7 +173,12 @@ function App() {
                                 src={resurrection.selectedSnapshot.snapshotUrl}
                                 title="Resurrected Site"
                                 className="ghost-frame"
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                referrerPolicy="no-referrer"
                             />
+                            <div className="iframe-fallback">
+                                <p>If the ghost doesn't appear, <a href={resurrection.selectedSnapshot.snapshotUrl} target="_blank" rel="noopener noreferrer">view it directly in the Wayback Machine</a></p>
+                            </div>
                         </div>
 
                         {/* Chat Interface */}
