@@ -30,8 +30,8 @@ app.use(express.json());
 // In-memory storage (use DynamoDB in production)
 const resurrections = new Map();
 
-const WAYBACK_CDX_API = 'http://web.archive.org/cdx/search/cdx';
-const WAYBACK_SNAPSHOT_URL = 'http://web.archive.org/web';
+const WAYBACK_CDX_API = 'https://web.archive.org/cdx/search/cdx';
+const WAYBACK_SNAPSHOT_URL = 'https://web.archive.org/web';
 
 // Health check
 app.get('/health', (req, res) => {

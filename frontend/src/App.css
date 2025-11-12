@@ -302,6 +302,19 @@ body::before {
     background: white;
 }
 
+.snapshot-url-debug {
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.5);
+    font-size: 0.75rem;
+    color: var(--ghostly-blue);
+    word-break: break-all;
+    margin-bottom: 0.5rem;
+}
+
+.snapshot-url-debug code {
+    color: var(--phosphor-green);
+}
+
 .iframe-fallback {
     position: absolute;
     bottom: 10px;

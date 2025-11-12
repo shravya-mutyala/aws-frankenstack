@@ -169,12 +169,17 @@ function App() {
 
                         {/* Snapshot Preview */}
                         <div className="snapshot-preview">
+                            <div className="snapshot-url-debug">
+                                Loading: <code>{resurrection.selectedSnapshot.snapshotUrl}</code>
+                            </div>
                             <iframe
                                 src={resurrection.selectedSnapshot.snapshotUrl}
                                 title="Resurrected Site"
                                 className="ghost-frame"
                                 sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-top-navigation"
                                 loading="eager"
+                                onLoad={() => console.log('Iframe loaded successfully')}
+                                onError={(e) => console.error('Iframe failed to load:', e)}
                             />
                             <div className="iframe-fallback">
                                 <p>If the ghost doesn't appear, <a href={resurrection.selectedSnapshot.snapshotUrl} target="_blank" rel="noopener noreferrer">view it directly in the Wayback Machine</a></p>

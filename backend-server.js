@@ -38,8 +38,8 @@ app.use(express.json());
 const resurrections = new Map();
 
 // Wayback Machine CDX API endpoint
-const WAYBACK_CDX_API = 'http://web.archive.org/cdx/search/cdx';
-const WAYBACK_SNAPSHOT_URL = 'http://web.archive.org/web';
+const WAYBACK_CDX_API = 'https://web.archive.org/cdx/search/cdx';
+const WAYBACK_SNAPSHOT_URL = 'https://web.archive.org/web';
 
 // ============================================
 // RESURRECTION ENDPOINTS
