@@ -195,6 +195,35 @@ body::before {
     padding: 2rem;
     margin-bottom: 2rem;
     box-shadow: 0 0 20px var(--terminal-glow);
+    position: relative;
+    overflow: hidden;
+}
+
+.resurrection-chamber::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--phosphor-green), var(--ghostly-blue), var(--ethereal-purple), var(--phosphor-green));
+    background-size: 400% 400%;
+    animation: border-glow 8s ease infinite;
+    z-index: -1;
+    opacity: 0.3;
+    filter: blur(10px);
+}
+
+@keyframes border-glow {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
 }
 
 .summon-form {
@@ -271,6 +300,19 @@ body::before {
     padding: 2rem;
     margin-bottom: 2rem;
     box-shadow: 0 0 20px rgba(157, 78, 221, 0.3);
+    animation: chamber-appear 0.8s ease-out;
+}
+
+@keyframes chamber-appear {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .ghost-info {

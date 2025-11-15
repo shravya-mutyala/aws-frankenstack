@@ -1,0 +1,294 @@
+.resurrection-ritual {
+    position: relative;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, rgba(157, 78, 221, 0.1) 0%, transparent 70%);
+    overflow: hidden;
+}
+
+.ritual-container {
+    position: relative;
+    width: 400px;
+    height: 400px;
+}
+
+/* Pentagram Circle */
+.pentagram-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    animation: rotate-pentagram 20s linear infinite;
+}
+
+.pentagram-svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 20px var(--ethereal-purple));
+}
+
+.circle-glow {
+    fill: none;
+    stroke: var(--ethereal-purple);
+    stroke-width: 2;
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.pentagram-star {
+    fill: none;
+    stroke: var(--phosphor-green);
+    stroke-width: 2;
+    stroke-linejoin: miter;
+    animation: pulse-star 3s ease-in-out infinite;
+}
+
+@keyframes rotate-pentagram {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        stroke-opacity: 0.5;
+        stroke-width: 2;
+    }
+
+    50% {
+        stroke-opacity: 1;
+        stroke-width: 3;
+    }
+}
+
+@keyframes pulse-star {
+
+    0%,
+    100% {
+        stroke-opacity: 0.7;
+        filter: drop-shadow(0 0 5px var(--phosphor-green));
+    }
+
+    50% {
+        stroke-opacity: 1;
+        filter: drop-shadow(0 0 15px var(--phosphor-green));
+    }
+}
+
+/* Rune Circle */
+.rune-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    animation: rotate-runes 15s linear infinite reverse;
+}
+
+.rune {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 1.5rem;
+    color: var(--ghostly-blue);
+    text-shadow: 0 0 10px var(--ghostly-blue);
+    animation: flicker-rune 3s ease-in-out infinite;
+}
+
+@keyframes rotate-runes {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(-360deg);
+    }
+}
+
+@keyframes flicker-rune {
+
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Ritual Core */
+.ritual-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+}
+
+.core-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, var(--ethereal-purple) 0%, transparent 70%);
+    opacity: 0.3;
+    animation: pulse-core 2s ease-in-out infinite;
+}
+
+@keyframes pulse-core {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.5;
+    }
+}
+
+.url-fragment {
+    position: relative;
+    font-size: 0.9rem;
+    color: var(--phosphor-green);
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--phosphor-green);
+    text-shadow: 0 0 5px var(--phosphor-green);
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.phase-text {
+    position: relative;
+    font-size: 1rem;
+    color: var(--ghostly-blue);
+    font-style: italic;
+    animation: flicker 1.5s infinite;
+    min-height: 2rem;
+}
+
+/* Code Fragments */
+.code-fragments {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.fragment {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 0.8rem;
+    color: var(--phosphor-green);
+    opacity: 0;
+    animation: float-fragment 4s ease-in-out infinite;
+    animation-delay: var(--delay);
+}
+
+@keyframes float-fragment {
+    0% {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.7;
+    }
+
+    80% {
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: translate(var(--x), var(--y));
+        opacity: 0;
+    }
+}
+
+/* Energy Pulses */
+.energy-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    border: 2px solid var(--ethereal-purple);
+    border-radius: 50%;
+    opacity: 0;
+    animation: pulse-wave 3s ease-out infinite;
+}
+
+.pulse-1 {
+    animation-delay: 0s;
+}
+
+.pulse-2 {
+    animation-delay: 1s;
+}
+
+.pulse-3 {
+    animation-delay: 2s;
+}
+
+@keyframes pulse-wave {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(2.5);
+        opacity: 0;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .ritual-container {
+        width: 300px;
+        height: 300px;
+    }
+
+    .pentagram-circle {
+        width: 220px;
+        height: 220px;
+    }
+
+    .rune-circle {
+        width: 220px;
+        height: 220px;
+    }
+
+    .rune {
+        font-size: 1.2rem;
+    }
+
+    .url-fragment {
+        font-size: 0.75rem;
+        max-width: 150px;
+    }
+}

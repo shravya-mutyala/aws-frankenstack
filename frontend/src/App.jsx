@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
+import ResurrectionRitual from './components/ResurrectionRitual';
+import SiteAutopsy from './components/SiteAutopsy';
+import ResurrectionComplete from './components/ResurrectionComplete';
 
 const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3001').trim();
 const WS_URL = API_URL.replace('https://', 'wss://').replace('http://', 'ws://');
@@ -12,6 +15,7 @@ function App() {
     const [chatMessage, setChatMessage] = useState('');
     const [chatHistory, setChatHistory] = useState([]);
     const [resurrections, setResurrections] = useState([]);
+    const [showComplete, setShowComplete] = useState(false);
     const wsRef = useRef(null);
 
     useEffect(() => {
@@ -21,8 +25,11 @@ function App() {
         wsRef.current.onmessage = (event) => {
             const data = JSON.parse(event.data);
             if (data.type === 'resurrection_complete') {
-                setResurrection(data.data);
                 setLoading(false);
+                setShowComplete(true);
+                setTimeout(() => {
+                    setResurrection(data.data);
+                }, 3500);
             }
         };
 
@@ -52,6 +59,7 @@ function App() {
         setError('');
         setResurrection(null);
         setChatHistory([]);
+        setShowComplete(false);
 
         try {
             const response = await fetch(`${API_URL}/api/resurrect`, {
@@ -72,10 +80,13 @@ function App() {
                 const statusData = await statusResponse.json();
 
                 if (statusData.status === 'complete') {
-                    setResurrection(statusData);
                     setLoading(false);
+                    setShowComplete(true);
                     clearInterval(checkStatus);
-                    fetchResurrections();
+                    setTimeout(() => {
+                        setResurrection(statusData);
+                        fetchResurrections();
+                    }, 3500);
                 }
             }, 1000);
 
@@ -114,6 +125,9 @@ function App() {
             <div className="crt-overlay"></div>
             <div className="scanlines"></div>
 
+            {/* Resurrection Complete Animation */}
+            {showComplete && <ResurrectionComplete onComplete={() => setShowComplete(false)} />}
+
             <header className="header">
                 <h1 className="title glitch" data-text="ECHOES OF THE DEAD WEB">
                     ECHOES OF THE DEAD WEB
@@ -145,14 +159,7 @@ function App() {
                         </div>
                     )}
 
-                    {loading && (
-                        <div className="loading-state">
-                            <div className="loading-text">
-                                <p>Channeling fragments from the Wayback Machine...</p>
-                                <p className="flicker">The séance begins...</p>
-                            </div>
-                        </div>
-                    )}
+                    {loading && <ResurrectionRitual url={url} />}
                 </section>
 
                 {/* Resurrected Site Display */}
@@ -160,12 +167,10 @@ function App() {
                     <section className="ghost-chamber">
                         <div className="ghost-header">
                             <h2 className="section-title">👁️ The Ghost Awakens</h2>
-                            <div className="ghost-info">
-                                <p><strong>Domain:</strong> {resurrection.url}</p>
-                                <p><strong>Era:</strong> {resurrection.personality.era}</p>
-                                <p><strong>Snapshots Found:</strong> {resurrection.snapshots.length}</p>
-                            </div>
                         </div>
+
+                        {/* Site Autopsy Panel */}
+                        <SiteAutopsy resurrection={resurrection} />
 
                         {/* Snapshot Preview */}
                         <div className="snapshot-preview">
