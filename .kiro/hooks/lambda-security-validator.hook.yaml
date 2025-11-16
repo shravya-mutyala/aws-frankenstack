@@ -1,0 +1,41 @@
+name: Lambda Security & Standards Validator
+description: Validates Lambda functions for security issues, AWS standards compliance, and runtime requirements
+trigger:
+  type: file-save
+  pattern: "{lambda/**/*.py,lambda-handler.js,**/lambda*.js}"
+
+actions:
+  - name: Security & Standards Check
+    prompt: |
+      A Lambda function has been modified. Perform a comprehensive security and standards validation:
+
+      ## Security Checks
+      1. Scan for hardcoded AWS credentials (access keys, secret keys, account IDs)
+      2. Check for exposed API keys, tokens, or secrets
+      3. Verify sensitive data is not logged (passwords, tokens, PII)
+      4. Ensure IAM permissions follow least privilege principle
+
+      ## AWS Standards Compliance (from aws-standards.md)
+      1. Verify Python runtime is 3.11 (check imports and syntax)
+      2. Confirm function timeout is under 15 seconds
+      3. Check that configuration uses environment variables (not hardcoded)
+      4. Verify X-Ray tracing is enabled in infrastructure
+      5. Ensure CloudWatch logging is properly configured
+      6. Validate all resources have required tags: Project=ProjectStitch, Environment, Component
+
+      ## Code Quality
+      1. Check for proper error handling (try/except blocks)
+      2. Verify boto3 clients are initialized correctly
+      3. Look for potential performance issues (inefficient loops, unnecessary API calls)
+      4. Ensure DynamoDB operations use proper key structures
+
+      ## Report Format
+      If issues found:
+      - List each issue with severity (CRITICAL/WARNING/INFO)
+      - Provide specific line numbers and code snippets
+      - Suggest fixes with code examples
+
+      If no issues:
+      - Confirm "✓ Lambda validation passed - no security or standards issues detected"
+
+      Focus on actionable feedback that prevents deployment failures and security vulnerabilities.
